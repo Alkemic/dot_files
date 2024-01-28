@@ -17,6 +17,8 @@ alias t=tail
 alias l=less
 alias h=head
 
+alias git='LANG=en_US.UTF-8 git'
+
 alias weather="curl wttr.in/wroclaw"
 alias simple_http="python -m SimpleHTTPServer"
 alias yt-mp3="youtube-dl --extract-audio --audio-format mp3"

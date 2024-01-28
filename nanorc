@@ -1,3 +1,4 @@
 set tabsize 4
 set tabstospaces
+#set mouse
 #include ~/.nano/syntax/ALL.nanorc

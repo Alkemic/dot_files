@@ -1,11 +1,11 @@
 [user]
-    name = Daniel Alkemic Czuba
+    name = Daniel Czuba
     email = alkemic7@gmail.com
     signingkey = 4251F37B41C414BCF97741EAB08001272C804BC4
 
 [core]
     autocrlf = input
-    excludesfile = /home/alkemic/.gitignore_global
+    excludesfile = ~/.gitconfig
     editor = nano
 
 [alias]
@@ -30,5 +30,8 @@
     b = branch
     c = commit
 
-[includeIf "gitdir:~/projects/go/src/gitlab.services.ams.osa/"]
-    path = ~/.work.gitconfig
+[includeIf "gitdir:~/projects/opera"]
+    path = ~/.gitconfig.oprah
+
+[commit]
+    gpgSign = true

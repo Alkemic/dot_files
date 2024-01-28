@@ -5,3 +5,4 @@ runall.sh
 stage.env
 prod.env
 devel.env
+.vscode

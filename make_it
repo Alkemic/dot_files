@@ -1,0 +1,33 @@
+#!/bin/bash -eu
+
+DEFAULT="\e[39m"
+RESET="\e[0m"
+RED="\e[31m"
+BLUE="\e[34m"
+LIGHT_BLUE="\e[94m"
+
+PWD=$(pwd)
+
+FILES=( "bashrc" "nanorc" "bash_completion.d" "gitignore_global" "gitconfig" )
+
+for FILE in "${FILES[@]}"; do
+    if [[ -e "${HOME}/.${FILE}" ]]; then
+        if [ "$(readlink ${HOME}/.$FILE)" != "${PWD}/${FILE}" ]; then
+            echo -en $RED
+            echo -e "\e[1m${HOME}/.$FILE\e[21m exists, but it's not our file. Move, then linking."
+            mv "${HOME}/.$FILE" "${HOME}/.${FILE}.$(date +%F)"
+            ln -s "${PWD}/${FILE}" "${HOME}/.$FILE"
+        else
+            echo -en "$LIGHT_BLUE"
+            echo -e "~/\e[1m.${FILE}\e[21m exists, and it's our file."
+        fi
+    else
+        echo -en "$LIGHT_BLUE"
+        echo -e "\e[1m${HOME}/.$FILE\e[21m doesn't exists. Linking."
+        ln -s "${PWD}/${FILE}" "${HOME}/.$FILE"
+    fi
+done
+
+echo -en "$RESET"
+
+exec bash

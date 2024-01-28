@@ -1,0 +1,34 @@
+[user]
+    name = Daniel Alkemic Czuba
+    email = alkemic7@gmail.com
+    signingkey = 4251F37B41C414BCF97741EAB08001272C804BC4
+
+[core]
+    autocrlf = input
+    excludesfile = /home/alkemic/.gitignore_global
+    editor = nano
+
+[alias]
+    lgg = log --graph --pretty=format:'%C(magenta)%h%Creset %C(bold)%C(red)%G?%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
+    days = "!days() { git log --pretty=format:%cd --date=short | uniq; }; days"
+    backup-branch = "!b() { CURR_BRANCH=$(git branch | grep "\\*" | cut -d ' ' -f2-); BACKUP_BRANCH="backup/${CURR_BRANCH}-$(date +%Y%m%d-%H%M)"; git branch $BACKUP_BRANCH; echo "Created ${BACKUP_BRANCH}"; }; b"
+    lg1 = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold yellow)%d%C(reset)' --all
+    lg2 = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold green)(%ar)%C(reset)%C(bold yellow)%d%C(reset)%n''          %C(white)%s%C(reset) %C(dim white)- %an%C(reset)' --all
+    lg = !"git lg1"
+    stash-diff = stash show -p
+    fzf = !"git checkout $(git branch | fzf)"
+    master = checkout master
+    aliases = !git config --get-regexp 'alias.*' | colrm 1 6 | sed 's/[ ]/ = /' | sort
+    sha = rev-parse HEAD
+    amend = commit --amend --no-edit
+    co = checkout
+    master = checkout master
+    logp = log -p
+    ll = log --pretty=oneline --abbrev-commit
+    fixup = !git commit --fixup $(git ll | fzf | cut -d' ' -f1)
+    squash = !git rebase -i --autosquash "$(git ll | fzf | cut -d' ' -f1)^1"
+    b = branch
+    c = commit
+
+[includeIf "gitdir:~/projects/go/src/gitlab.services.ams.osa/"]
+    path = ~/.work.gitconfig

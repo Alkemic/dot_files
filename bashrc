@@ -1,3 +1,4 @@
+#!/bin/sh
 # ~/.bashrc: executed by bash(1) for non-login shells.
 # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
 # for examples
@@ -118,3 +119,42 @@ alias mkvenvloc='mkvirtualenv --python=/opt/python/2.7/bin/python'
 
 export GOPATH=~/testing/go
 export PATH=$PATH:~/.bin
+# # VirtualEnv(Wrapper) conf
+# if [ -e /opt/python/2.7/bin/virtualenvwrapper.sh ]
+# then
+#     export WORKON_HOME=$HOME/.virtualenvs
+#     export VIRTUALENVWRAPPER_PYTHON=/opt/python/2.7/bin/python
+#     export PYTHON=/opt/python/2.7/bin/python
+#     . /opt/python/2.7/bin/virtualenvwrapper.sh
+#     alias mkvenvloc='mkvirtualenv --python=/opt/python/2.7/bin/python'
+# fi
+
+export GOPATH=~/projects/go
+export PATH=$PATH:~/.bin:$GOPATH/bin
+
+# source ~/.autoenv/activate.sh
+
+complete -C /home/alkemic/projects/go/bin/gocomplete go
+
+_backup_glob='@(#*#|*@(~|.@(bak|orig|rej|swp|dpkg*|rpm@(orig|new|save))))'
+_blacklist_glob='@(acroread.sh)'
+compat_dir=~/.bash_completion.d/
+if [[ -d $compat_dir && -r $compat_dir && -x $compat_dir ]]; then
+    for i in "$compat_dir"/*; do
+        [[ ${i##*/} != @($_backup_glob|Makefile*|$_blacklist_glob) \
+            && -f $i && -r $i ]] && . "$i"
+    done
+fi
+
+export LESS_TERMCAP_mb="$(printf "\e[1;31m")"
+export LESS_TERMCAP_md="$(printf "\e[1;31m")"
+export LESS_TERMCAP_me="$(printf "\e[0m")"
+export LESS_TERMCAP_se="$(printf "\e[0m")"
+export LESS_TERMCAP_so="$(printf "\e[1;44;33m")"
+export LESS_TERMCAP_ue="$(printf "\e[0m")"
+export LESS_TERMCAP_us="$(printf "\e[1;32m")"
+
+# source local config if exists
+if [ -e ${HOME}/.dot_files/local.sh ]; then
+    . ${HOME}/.dot_files/local.sh
+fi

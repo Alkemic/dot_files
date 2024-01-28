@@ -1,2 +1,7 @@
 *.pyc
 *.pyo
+.idea
+runall.sh
+stage.env
+prod.env
+devel.env

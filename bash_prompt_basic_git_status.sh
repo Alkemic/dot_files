@@ -92,3 +92,4 @@ else \
   echo " '$Yellow$PathShort$Color_Off'\$ "; \
 fi)'
 
+PROMPT_COMMAND='echo -ne "\033]0;${USER}@${HOSTNAME}: ${PWD}\007"'
